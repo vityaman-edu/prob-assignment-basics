@@ -11,7 +11,7 @@ from typing import (
 )
 from numbers import Number
 from functools import reduce
-from math import sqrt, log, ceil
+from math import sqrt, log, ceil, factorial, exp
 
 Probability = Number
 
@@ -29,6 +29,9 @@ class Interval(NamedTuple):
     @property
     def middle(self) -> Number:
         return self.begin + self.length / 2
+    
+    def __str__(self) -> str:
+        return f'({self.begin}, {self.end})'
 
 
 class Bin(NamedTuple):
@@ -79,19 +82,20 @@ def mean(numbers: Collection[Number]) -> Number:
         lambda a, b: a + b,
         numbers,
         0,
-    )
-
-
-def variance(numbers: Collection[Number]) -> Number:
-    return reduce(
-        lambda a, b: a + b ** 2,
-        numbers,
-        0,
     ) / len(numbers)
 
 
-def std(numbers: Collection[Number]) -> Number:
-    return sqrt(variance(numbers))
+def variance(numbers: Collection[Number], fixed=False) -> Number:
+    m = mean(numbers)
+    return reduce(
+        lambda a, b: a + (b - m) ** 2,
+        numbers,
+        0,
+    ) / (len(numbers) - (1 if fixed else 0))
+
+
+def std(numbers: Collection[Number], fixed=False) -> Number:
+    return sqrt(variance(numbers, fixed))
 
 
 def distinct(numbers: Collection[Number]) -> Collection[Number]:

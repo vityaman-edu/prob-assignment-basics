@@ -1,0 +1,166 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{setspace}
+\usepackage{changepage}
+\usepackage{caption}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\pgfplotsset{compat=1.18}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = blue,
+  filecolor  = magenta,      
+  urlcolor   = darkgray,
+  pdftitle   = {
+    math-tool-report-approx-smirnov-victor-p32131
+  },
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\lstdefinestyle{codestyle}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+\lstset{style=codestyle}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \begin{spacing}{1.4}
+            \large{Университет ИТМО} \\
+            \large{Факультет программной инженерии и компьютерной техники} \\
+        \end{spacing}
+        \vfill
+        \textbf{
+            \huge{Теория Вероятности.} \\
+            \huge{Практическая работа №6.} \\
+        }
+    \end{center}
+    \vfill
+    \begin{center}
+        \begin{tabular}{r l}
+            Группа:  & P32131                  \\
+            Студент: & Смирнов Виктор Игоревич \\
+            Вариант: & 16                      \\
+        \end{tabular}
+    \end{center}
+    \vfill
+    \begin{center}
+        \begin{large}
+            2023
+        \end{large}
+    \end{center}
+\end{titlepage}
+
+\section{Задача 1}
+
+Дана выборка: $a = [0.27, 0.27, 0.28, 0.29, 0.3, 0.31, 0.33, 0.33, 0.35, 0.37]$.
+$n = 10, \gamma = 0.99$
+
+$A = mean = 0.31$
+
+$S = \sqrt{D} = \frac{\sum_{i=1}^n(a_i - A)^2}{n - 1}$
+
+$t = student(n, (1 + \gamma) / 2) = 3.25$, посмотрели в таблице.
+
+$(A - \frac{tS}{\sqrt{n}}, m + \frac{tS}{\sqrt{n}}) = (0.275, 0.345)$
+
+\section{Задача 2}
+
+Дано: $
+n = 64, 
+A = mean(a) = 5452.8 / n = 85.2, 
+S = \sqrt{\frac{973.44}{n}} = 3.9,
+\gamma = 0.9
+$
+
+$t = student(n, (1 + \gamma) / 2) = 1.671$
+
+$(A - \frac{tS}{\sqrt{n}}, A + \frac{tS}{\sqrt{n}}) = (84.385, 86.015)$
+
+\section{Задача 3}
+
+Дано: $c = [112, 168, 130, 69, 32, 5, 1, 1]$
+
+$n = sum(c) = 518$
+
+$A = mean(c) = 1.5463320463320462$
+
+\begin{lstlisting}[
+    language={Bash},
+    caption={Таблица сырая}
+]
+0       112     0.21302791908795654     110.34846208756149
+1       168     0.3294118980491374      170.63536318945316
+2       130     0.254690087198223       131.9294651686795
+3       69      0.1312784812392385      68.00225328192553
+4       32      0.0507500306335087      26.288515868157507
+5       5       0.01569527974418551     8.130154907488095
+6       1       0.004045019007430049    2.0953198458487656
+7       1       0.00089356321703019     0.4628657464216384
+\end{lstlisting}
+
+\begin{lstlisting}[
+    language={Bash},
+    caption={Таблица исправленная}
+]
+0       112     0.2142652510642606      110.98940005128698
+1       168     0.33008430569359065     170.98367034927995
+2       130     0.25425412735857655     131.70363797174267
+3       69      0.130562930265215       67.63159787738138
+4       32      0.050284371791332806    26.047304587910393
+5       7       0.015493022660032269    8.025385737896714
+\end{lstlisting}
+
+Исправленные показатели:
+$b = [112, 168, 130, 69, 32, 7]$
+
+Распределение пуассона считали по формуле
+
+$p(i) = \frac{\lambda^i}{i!} e^{-\lambda}$
+
+Получаем актуальное значение
+
+$\chi^2 = \sum_{i=1}^n \frac{(b_i - p(i)n)^2}{p(i)n} = 1.6023960916505628$
+
+Теперь вычисляем ожидаемое значение
+
+$k = n, l = 1, k - l - 1 = 4, 1 - \alpha = 0.99$
+
+$\chi^2 = 13.3$
+
+$1.6024 < 13.3 \Rightarrow $ принимаем гипотезу.
+
+\end{document}

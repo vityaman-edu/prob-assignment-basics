@@ -18,7 +18,7 @@ Smirnov @vityaman Victor 2023.
 from stati import *
 from ploti import *
 
-print("Probability Theory Assignment 1 by Smirnov Victor")
+print('Probability Theory Assignment 1 by Smirnov Victor')
 
 numbers = [
     -0.45, 0.52, -1.63, -0.42, -1.18,
@@ -27,37 +27,36 @@ numbers = [
     0.73,  0.00,  1.59,  0.17, -0.45
 ]
 
-print("Input data:")
+print('Input data:')
 print(numbers)
 
 numbers = sorted(numbers)
-print("Sorted data:")
+print('Sorted data:')
 print(numbers)
 
 distinct_numbers = sorted(distinct(numbers))
-print("Distinct data:")
+print('Distinct data:')
 print(distinct_numbers)
 
-print(f"Data size:          {len(numbers)}")
-print(f"Distinct data size: {len(distinct_numbers)}")
+print(f'Data size:          {len(numbers)}')
+print(f'Distinct data size: {len(distinct_numbers)}')
 
-print(f"Max:                {max(numbers)}")
-print(f"Min:                {min(numbers)}")
-print(f"Amplitude:          {amplitude(numbers)}")
-print(f"Mean:               {mean(numbers)}")
-print(f"Variance:           {variance(numbers)}")
-print(f"Standart deviation: {std(numbers)}")
+print(f'Max:                {max(numbers)}')
+print(f'Min:                {min(numbers)}')
+print(f'Amplitude:          {amplitude(numbers)}')
+print(f'Mean:               {mean(numbers)}')
+print(f'Variance:           {variance(numbers)}')
+print(f'Standart deviation: {std(numbers)}')
 
 F = empirical_distribution_function(numbers)
-plot = Plot("Empirical Distribution Function")
+plot = Plot('Empirical Distribution Function')
 plot.function(tabulate(scope(numbers), 1000), F)
 plot.show()
 
 hist = histogram(numbers, sturges_step(numbers))
-plot = Plot("Histogram")
+plot = Plot('Histogram')
 plot.histogram(hist)
 plot.points([Point(bin.interval.middle, bin.count) for bin in hist.bin_list])
 plot.show()
 
-
-input("Press any button to exit...")
+input('Press any button to exit...')

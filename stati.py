@@ -109,7 +109,7 @@ def empirical_distribution_function(numbers: Collection[Number]) -> Function:
 def partition(scope: Interval, n: int) -> Iterable[Interval]:
     step = scope.length / n
     current = scope.begin + step
-    while current < scope.end:
+    while current <= scope.end:
         yield Interval(current - step, current)
         current += step
 
@@ -123,10 +123,10 @@ def sturges_step(numbers: Collection[Number]) -> Number:
 
 
 def histogram(numbers: Collection[Number], step) -> Histogram:
+    F = empirical_distribution_function(numbers)
+    scope = Interval(min(numbers) - step / 2, max(numbers) + 0.00000001)
+    bins = ceil(scope.length / step)
     def generate():
-        F = empirical_distribution_function(numbers)
-        scope = Interval(min(numbers) - step / 2, max(numbers))
-        bins = ceil(scope.length / step)
         for interval in partition(scope, bins):
             count = (F(interval.end) - F(interval.begin)) * len(numbers)
             yield Bin(interval, count)

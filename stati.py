@@ -31,7 +31,7 @@ class Interval(NamedTuple):
         return self.begin + self.length / 2
     
     def __str__(self) -> str:
-        return f'({self.begin}, {self.end})'
+        return f'({round(self.begin, 2)}, {round(self.end, 2)})'
 
 
 class Bin(NamedTuple):

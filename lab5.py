@@ -36,15 +36,25 @@ print(f'Max:                {max(numbers)}')
 print(f'Min:                {min(numbers)}')
 print(f'Amplitude:          {amplitude(numbers)}')
 print(f'Mean:               {mean(numbers)}')
-print(f'Variance:           {variance(numbers)}')
-print(f'Standart deviation: {std(numbers)}')
+print(f'Variance:           {variance(numbers, fixed=True)}')
+print(f'Standart deviation: {std(numbers, fixed=True)}')
+
 
 F = empirical_distribution_function(numbers)
+print('Empirical Distribution Function')
+for number in numbers:
+    print(f'F(x <= {number}) = {F(number)}')
+
 plot = Plot('Empirical Distribution Function')
 plot.function(tabulate(scope(numbers), 1000), F)
 plot.show()
 
 hist = histogram(numbers, sturges_step(numbers))
+print('Histogram')
+print('interval', 'count', sep='\t')
+for bin in hist.bin_list:
+    print(f'{bin.interval}\t{round(bin.count)}')
+
 plot = Plot('Histogram')
 plot.histogram(hist)
 plot.points([Point(bin.interval.middle, bin.count) for bin in hist.bin_list])

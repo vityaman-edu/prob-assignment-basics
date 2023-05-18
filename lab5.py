@@ -8,6 +8,7 @@ Smirnov @vityaman Victor 2023.
 
 from stati import *
 from ploti import *
+from collections import Counter
 
 print('Probability Theory Assignment 1 by Smirnov Victor')
 
@@ -28,6 +29,14 @@ print(numbers)
 distinct_numbers = sorted(distinct(numbers))
 print('Distinct data:')
 print(distinct_numbers)
+
+print('Table')
+for e in dict(Counter(numbers)).values():
+    print(f'{e:6}', end=' ')
+print()
+for e in dict(Counter(numbers)).keys():
+    print(f'{e:6.4}', end=' ')
+print()
 
 print(f'Data size:          {len(numbers)}')
 print(f'Distinct data size: {len(distinct_numbers)}')

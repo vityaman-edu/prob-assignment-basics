@@ -48,7 +48,9 @@ n = 64
 m = 5452.8 / n
 s = sqrt(973.44 / n)
 gamma = 0.9
-t = student(n, (1 + gamma) / 2)
+print(f'{(1 + gamma) / 2 = }')
+t = (1.65 + 1.64) / 2
+print(f'{t = }')
 interval = Interval(m - t * s / sqrt(n), m + t * s / sqrt(n))
 print(f'N:        {n}')
 print(f'mean:     {m}')
@@ -82,18 +84,20 @@ for i in range(len(a)):
 
 
 b = [112, 168, 130, 69, 32, 7]
-n = sum(b)
-m = sum(i * b[i] for i in range(len(b))) / n
-
-p = puasson(m)
-
-print('Table B')
-for i in range(len(b)):
-    print(f'{i}\t{b[i]}\t{p(i)}\t{p(i) * n}')
+b_star = [
+    110.34846208756149,
+    170.63536318945316,
+    131.9294651686795,
+    68.00225328192553,
+    26.288515868157507,
+    8.130154907488095
+    + 2.0953198458487656
+    + 0.4628657464216384,
+]
 
 actual_chi2 = sum(
-    (b[i] - p(i) * n) ** 2 / (p(i) * n) \
-        for i in range(len(b))
+    (b[i] - b_star[i]) ** 2 / (b_star[i])
+    for i in range(len(b))
 )
 print(f'Actual chi^2: {actual_chi2}')
 

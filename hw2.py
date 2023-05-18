@@ -49,7 +49,9 @@ plot = Plot('Empirical Distribution Function')
 plot.function(tabulate(scope(data), 1000), F)
 plot.show()
 
-hist = histogram(data, sturges_step(data))
+M = 9
+h = amplitude(data) / M
+hist = histogram(data, h)
 plot = Plot('Histogram')
 plot.histogram(hist)
 plot.points([Point(bin.interval.middle, bin.count) for bin in hist.bin_list])
